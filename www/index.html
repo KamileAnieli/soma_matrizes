@@ -86,7 +86,7 @@ function matriz(){
        }
     }
 
-
+/*
     //escrevendo as matrizes na tela
     for (var i=0; i<100; i++) {
        for (var j=0; j<100; j++) {
@@ -104,12 +104,21 @@ function matriz(){
        for (var j=0; j<100; j++) {
             document.write(i+"-"+j+" : "+matrix3[i][j]+"<br>");
        }
-    }
+    }*/
 }
 
 </script>
 </head>
-<body onload="matriz()">
+<body >
+<script >
+  hr_inicial = new Date();
+  matriz();
+  intervalo = 0;
+  hr_final = new Date();
+  intervalo = hr_final - hr_inicial;
+  intervalo = intervalo / 1000;
+  alert("O tempo de execucao foi: "+intervalo);
+</script>
 
 <img style="display:none;width:90px;height:90px;" id="smallImage" src="" />
 <img style="display:none;" id="largeImage" src="" />
