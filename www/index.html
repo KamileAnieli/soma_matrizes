@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fotos / Soma Matrizes</title>
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" charset="utf-8">
+ 
+var pictureSource; // picture source
+var destinationType; // sets the format of returned value
+ 
+// Espera o dispositivo conectar a camera com o Phonegap
+//
+document.addEventListener("deviceready",onDeviceReady,false);
+ 
+// PhoneGap pronto para uso
+//
+function onDeviceReady() {
+pictureSource=navigator.camera.PictureSourceType;
+destinationType=navigator.camera.DestinationType;
+}
+ 
+// Chamado quando a foto é tirada com sucesso
+//
+function onPhotoDataSuccess(imageData) {
+// Get image handle
+//
+var smallImage = document.getElementById('smallImage');
+ 
+// Unhide image elements
+//
+smallImage.style.display = 'block';
+ 
+// Show the captured photo
+// The inline CSS rules are used to resize the image
+//
+smallImage.src = "data:image/jpeg;base64," + imageData;
+}
+ 
+function capturePhotoWithData() {
+// Take picture using device camera and retrieve image as base64-encoded string
+navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+}
+ 
+// Called if something bad happens.
+//
+function onFail(message) {
+alert('Failed because: ' + message);
+}
+
+ 
+</script>
+
+<script language=javascript>
+function createMatrix(x,y){
+  mt = new Array();
+    for(i=0; i<x; i++){
+      mt[i] = new Array();
+      for(j=0; j<y; j++){
+        mt[i][j] = -1;
+      }
+    }
+  return mt;
+}
+function matriz(){ 
+    matrix1 = createMatrix(100,100);
+    matrix2 = createMatrix(100,100);
+    matrix3 = createMatrix(100,100);    
+
+    //colocando valores nas matrizes
+    for (var i=0; i<100; i++) {
+       for (var j=0; j<100; j++) {
+          matrix1[i][j] = i+j;
+       }
+    }
+    for (var i=0; i<100; i++) {
+       for (var j=0; j<100; j++) {
+          matrix2[i][j] = i+j;
+       }
+    }
+
+    //soma das matrizes
+    for (var i=0; i<100; i++) {
+       for (var j=0; j<100; j++) {
+          matrix3[i][j] = matrix1[i][j] + matrix1[i][j] ;
+       }
+    }
+
+
+    //escrevendo as matrizes na tela
+    for (var i=0; i<100; i++) {
+       for (var j=0; j<100; j++) {
+            document.write(i+"-"+j+" : "+matrix1[i][j]+"<br>");
+       }
+    }
+    document.write("<br><br>");
+    for (var i=0; i<100; i++) {
+       for (var j=0; j<100; j++) {
+            document.write(i+"-"+j+" : "+matrix2[i][j]+"<br>");
+       }
+    }
+    document.write("<br><br>");
+    for (var i=0; i<100; i++) {
+       for (var j=0; j<100; j++) {
+            document.write(i+"-"+j+" : "+matrix3[i][j]+"<br>");
+       }
+    }
+}
+
+</script>
+</head>
+<body onload="matriz()">
+
+<img style="display:none;width:90px;height:90px;" id="smallImage" src="" />
+<img style="display:none;" id="largeImage" src="" />
+</body>
+</html>
